@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const TOTAL_PAGES = 10;
+    const TOTAL_PAGES = 10; // Sizin son kodunuzdaki değer
     let currentPage = 1;
 
     // --- DOM Elements ---
-    const appContainer = document.getElementById('app-container'); // For blurring
+    const appContainer = document.getElementById('app-container');
     const coverPageDiv = document.getElementById('cover-page');
     const coverTitleElem = document.getElementById('cover-title');
     const openNotebookBtn = document.getElementById('open-notebook-btn');
@@ -19,31 +19,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevPageBtn = document.getElementById('prev-page-btn');
     const nextPageBtn = document.getElementById('next-page-btn');
 
-    // --- Image Focus related DOM Elements ---
     let imageFocusOverlay;
     let focusedImageElem;
 
-    // Function to create or get focus elements
     function setupImageFocusElements() {
-        imageFocusOverlay = document.getElementById('image-focus-overlay');
-        focusedImageElem = document.getElementById('focused-image');
+        imageFocusOverlay = document.getElementById('image-focus-overlay'); // HTML'de statik olarak yoksa oluşturulacak
+        focusedImageElem = document.getElementById('focused-image'); // HTML'de statik olarak yoksa oluşturulacak
 
-        if (!imageFocusOverlay) { // If not in HTML, create them
+        if (!imageFocusOverlay) {
             imageFocusOverlay = document.createElement('div');
             imageFocusOverlay.id = 'image-focus-overlay';
-            // CSS handles initial hidden state (opacity: 0, visibility: hidden)
 
             focusedImageElem = document.createElement('img');
             focusedImageElem.id = 'focused-image';
-            focusedImageElem.alt = "Focused Image"; // Set a default alt text
+            focusedImageElem.alt = "Odaklanmış Resim"; // Turkish for "Focused Image"
 
             imageFocusOverlay.appendChild(focusedImageElem);
-            document.body.appendChild(imageFocusOverlay); // Append to body to be outside app-container for blur
+            document.body.appendChild(imageFocusOverlay);
         }
 
-        // Event listener to close when clicking on the overlay (but not the image itself)
         imageFocusOverlay.addEventListener('click', (event) => {
-            if (event.target === imageFocusOverlay) { // Only if overlay background is clicked
+            if (event.target === imageFocusOverlay) {
                 hideImageFocus();
             }
         });
@@ -67,14 +63,14 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 1; i <= TOTAL_PAGES; i++) {
         pagesData.push({
             pageNumber: i,
-            imageSrc: `images/${i}.webp`, // Resim yolu formatı güncellendi
-            text: i <= providedTexts.length ? providedTexts[i - 1] : null // İlk 4 için metin, sonrası için null
+            imageSrc: `images/${i}.webp`,
+            text: i <= providedTexts.length ? providedTexts[i - 1] : null
         });
     }
-
-    for (let i = pagesData.length + 1; i <= TOTAL_PAGES; i++) {
-        pagesData.push({ pageNumber: i, imageSrc: null, text: null });
-    }
+    // MODIFIED: Gereksiz olan ikinci döngü kaldırıldı.
+    // for (let i = pagesData.length + 1; i <= TOTAL_PAGES; i++) {
+    //     pagesData.push({ pageNumber: i, imageSrc: null, text: null });
+    // }
 
     // --- Functions ---
     function openNotebook() {
@@ -89,22 +85,20 @@ document.addEventListener('DOMContentLoaded', () => {
         notebookInteriorDiv.classList.add('hidden');
         coverPageDiv.classList.remove('hidden');
         if (imageFocusOverlay && imageFocusOverlay.classList.contains('visible')) {
-            hideImageFocus(); // Ensure focus is hidden if returning to cover
+            hideImageFocus();
         }
     }
 
     function renderPage(pageNumber) {
         currentPageContentDiv.classList.add('fade-out');
-
         setTimeout(() => {
             const pageData = pagesData.find(p => p.pageNumber === pageNumber);
-
             if (pageData) {
                 if (pageData.imageSrc) {
                     pageImageElem.src = pageData.imageSrc;
-                    pageImageElem.alt = pageData.text ? pageData.text.substring(0, 50) + "..." : `Memory Image ${pageData.pageNumber}`; // Better alt text
+                    pageImageElem.alt = pageData.text ? pageData.text.substring(0, 50) + "..." : `Anı Resmi ${pageData.pageNumber}`;
                     pageImageElem.classList.remove('hidden');
-                    pageImageElem.style.cursor = 'pointer'; // Make it look clickable
+                    pageImageElem.style.cursor = 'pointer';
                 } else {
                     pageImageElem.src = '';
                     pageImageElem.classList.add('hidden');
@@ -114,9 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 pageImageElem.classList.add('hidden');
                 pageImageElem.style.cursor = 'default';
-                pageTextElem.textContent = 'Page data not found.';
+                pageTextElem.textContent = 'Sayfa içeriği bulunamadı.';
             }
-
             updateNavigationButtons();
             currentPageContentDiv.scrollTop = 0;
             currentPageContentDiv.classList.remove('fade-out');
@@ -142,23 +135,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Image Focus Functions ---
     function showImageFocus() {
-        // Check if pageImageElem is visible and has a valid src
         if (pageImageElem.src && !pageImageElem.classList.contains('hidden') && imageFocusOverlay) {
             focusedImageElem.src = pageImageElem.src;
-            focusedImageElem.alt = pageImageElem.alt + " (focused)"; // Copy alt text
+            focusedImageElem.alt = pageImageElem.alt + " (odaklanmış)";
             imageFocusOverlay.classList.add('visible');
-            appContainer.classList.add('app-blurred'); // Blur the main app content
-            // document.body.style.overflow = 'hidden'; // Optional: Prevent body scroll if needed elsewhere
+            appContainer.classList.add('app-blurred');
         }
     }
 
     function hideImageFocus() {
         if (imageFocusOverlay) {
             imageFocusOverlay.classList.remove('visible');
-            appContainer.classList.remove('app-blurred'); // Remove blur from main app content
-            // document.body.style.overflow = ''; // Optional: Restore body scroll
+            appContainer.classList.remove('app-blurred');
         }
     }
 
@@ -168,14 +157,12 @@ document.addEventListener('DOMContentLoaded', () => {
     prevPageBtn.addEventListener('click', goToPrevPage);
     nextPageBtn.addEventListener('click', goToNextPage);
 
-    // Event listener for pageImageElem click (for focus)
     pageImageElem.addEventListener('click', () => {
-        // Only trigger focus if the image is actually visible and has a source
         if (!pageImageElem.classList.contains('hidden') && pageImageElem.getAttribute('src')) {
             showImageFocus();
         }
     });
 
     // --- Initial Setup ---
-    setupImageFocusElements(); // Call this to prepare the focus mode elements
+    setupImageFocusElements();
 });
