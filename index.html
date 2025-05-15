@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bizim Kitabımız</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app-container">
+        <div id="cover-page">
+            <h1 id="cover-title">Hayat Seninle Çok Güzel</h1>
+            <p id="cover-description">Eksikliğini hep hissettiğim ama umursamamaya çalıştığım o öbür yarım sensin. <br> <br><b>Butonun çalışması için İbrahim'i öp.</b></p>
+            <button id="open-notebook-btn">Aç</button>
+        </div>
+
+        <div id="notebook-interior" class="hidden">
+            <header id="notebook-header">
+                <button id="return-to-cover-btn" title="Back to Cover">&#8617;</button>
+                <h2 id="fixed-title"></h2>
+            </header>
+            <main id="notebook-pages-container">
+                <div id="current-page-content">
+                    <div class="page-image-container">
+                        <img src="" alt="Memory Image" id="page-image" class="hidden">
+                    </div>
+                    <div class="page-text-container" id="page-text">
+                        </div>
+                </div>
+            </main>
+            <nav id="notebook-navigation">
+                <button id="prev-page-btn">Önceki Sayfa</button>
+                <button id="next-page-btn">Sonraki Sayfa</button>
+            </nav>
+        </div>
+
+        </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

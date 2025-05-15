@@ -1,0 +1,247 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f0e8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #3a352f;
+    overflow: hidden; /* Remains as is */
+}
+
+#app-container {
+    width: 360px;
+    height: 800px;
+    background-color: #fffdfa;
+    border: 1px solid #dcd1c0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden; /* Remains as is */
+    transition: filter 0.3s ease; /* Added for smooth blur/unblur */
+}
+
+/* Class to blur the app container */
+#app-container.app-blurred {
+    filter: blur(5px);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Cover Page */
+#cover-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+    height: 100%;
+    background-color: #eaddc7;
+}
+
+#cover-title {
+    font-size: 2.5em;
+    color: #5c4b3e;
+    margin-bottom: 20px;
+}
+
+#cover-description {
+    font-size: 1.1em;
+    color: #7a6a5c;
+    margin-bottom: 40px;
+    padding: 0 20px;
+}
+
+#open-notebook-btn {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    background-color: #8d7b68;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#open-notebook-btn:hover {
+    background-color: #7a6a5c;
+}
+
+/* Notebook Interior */
+#notebook-interior {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+#notebook-header {
+    background-color: #f0e6d8;
+    padding: 10px 15px;
+    text-align: center;
+    border-bottom: 1px solid #dcd1c0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#return-to-cover-btn {
+    background: none;
+    border: none;
+    color: #7a6a5c;
+    font-size: 1em;
+    cursor: pointer;
+    padding: 2px 5px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+#return-to-cover-btn:hover {
+    color: #5c4b3e;
+}
+
+#fixed-title {
+    font-size: 1.3em;
+    color: #5c4b3e;
+    font-weight: bold;
+    text-align: center;
+    flex-grow: 1;
+    margin: 0 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+#notebook-pages-container {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+#current-page-content {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+#current-page-content.fade-out {
+    opacity: 0;
+}
+
+.page-image-container {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+#page-image {
+    max-width: 100%;
+    max-height: 350px;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    display: block;
+    cursor: pointer; /* Ensure image is clickable */
+}
+
+#page-image.hidden {
+    display: none;
+}
+
+.page-text-container {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #4a443d;
+    width: 100%;
+    max-width: 300px;
+    text-align: left;
+    min-height: 50px;
+}
+
+#notebook-navigation {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-top: 1px solid #dcd1c0;
+    background-color: #f0e6d8;
+}
+
+#notebook-navigation button {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #a08f7c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#notebook-navigation button:hover {
+    background-color: #8d7b68;
+}
+
+#notebook-navigation button:disabled {
+    background-color: #c0b6a9;
+    cursor: not-allowed;
+}
+
+/* --- NEW CSS FOR IMAGE FOCUS --- */
+#image-focus-overlay {
+    position: fixed; /* Covers the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Darker semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensures it's on top of everything */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s; /* For smooth fade-in/out */
+}
+
+#image-focus-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s; /* Ensures visibility changes correctly with opacity */
+}
+
+#focused-image {
+    max-width: 90vw; /* Max width relative to viewport width */
+    max-height: 85vh; /* Max height relative to viewport height */
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    transform: scale(0.7); /* Start slightly smaller for zoom effect */
+    transition: transform 0.3s ease;
+    z-index: 1001; /* Above the overlay background */
+}
+
+#image-focus-overlay.visible #focused-image {
+    transform: scale(1); /* Zoom to full size */
+}
