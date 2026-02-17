@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const TOTAL_PAGES = 10; // Sizin son kodunuzdaki değer
     let currentPage = 1;
 
     // --- DOM Elements ---
@@ -15,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentPageContentDiv = document.getElementById('current-page-content');
     const pageImageElem = document.getElementById('page-image');
     const pageTextElem = document.getElementById('page-text');
+    const pageImageContainer = document.querySelector('.page-image-container');
 
     const prevPageBtn = document.getElementById('prev-page-btn');
     const nextPageBtn = document.getElementById('next-page-btn');
@@ -57,21 +57,46 @@ document.addEventListener('DOMContentLoaded', () => {
         'Genelde senle konuşurken sevgimi tam anlamıyla yansıtamadığımı düşünüyorum ama emin ol ki şuan yazdığım şey bile benim sana olan sevgimin yanında gerçekten bir hiç kalıyor. Fakat gerçekten seni her şeylerden tüm kalbimle tüm varlığımla çok sevdiğimi bilmeni istiyorum. Çünkü sensiz ben var olamazdım.',
         'Hayat bunaltıcı, daraltıcı ve zorlayıcı. Bunu hissettiğin zamanda annen, baban arkadaşların seni anlamasa bile ben her zaman her zaman seni anlıyorum ve her kararında yanındayım . Doğru yanlış burada önemli değil, hayatta yanlış da yapabilirsin ama ben yanlışlarınla da yanında olucam. Hayat hem bunları düşünmek için çok kısa hem de ben seni çok seviyorum.',
         'Seninle tartışmak bile o kadar farklı hissettiriyor ki, evet bol bol tartışabiliriz ama tartışmalar sonrasındaki olgunluğun beni kendine daha da çok çekiyor. Aklına da hayranım, zekana hayranım, güzelliğine hayranım. Ama en çok da kalbine hayranım. Kalbinin güzelliği beni benden alıyor. Her şeyinle çok güzelsin. Bunu bilmeni istiyorum.',
-        'Son olarak, sen gerçekten çok zeki bir kızsın ve bunu senin de sonuna kadar inanmanı istiyorum. Potansiyelinin gerçekten çok yukarıda olduğuna inanıyorum ve inanmakla kalmıyorum da, biliyorum. Acaba sana karşı olan sonsuz sevgimden mi böyle hissediyorum ama eminim ki sen hayatındaki tüm sorunları teker teker ezip geçeceksin. Mükemmel bir insansın, ve benim sevgilim olduğun için kendimi çok şanslı hissediyorum. Seni çok çok çok çok çok çooook seviyorum güzel sevgilim benim.'
+        'Sen gerçekten çok zeki bir kadınsın ve hiçbir zaman bundan şüphe etmeni istemiyorum. Potansiyelinin gerçekten çok yukarıda olduğuna inanıyorum ve inanmakla kalmıyorum da, biliyorum. Acaba sana karşı olan sonsuz sevgimden mi böyle hissediyorum bilmiyorum ama eminim ki sen hayatındaki tüm sorunları teker teker ezip geçeceksin. Mükemmel bir insansın, ve benim sevgilim olduğun için kendimi çok şanslı hissediyorum. Seni çok çok çok çok çok çooook seviyorum güzel sevgilim benim.',
+        'Nasılsın güzelim. Seninle beraber bu hayat yolunda yürümeyi tüm kalbimle çok ama çok seviyorum. Eminim ki kötü günler olacak ve oldu da ama hepsini çekilebilir ve sonuna kadar uğraşıp emek vermeye değer kılan senin güzel kalbin ve kişiliğin oldu. Motivasyonunu buradan aldığını söylemiştin, ben hayatımın motivasyonunu, zevkini ve kalan her şeyini senden alıyorum. Sensiz hayat düşünemiyorum bile, düşünmek istemiyorum ve bilmek de istemiyorum . Güzelim, ben sana çok aşığım. Bunlar ışığında, dışarıdan belki güçlü bir karakter olarak da görünüyor olabilirim fakat bunun sebebi sensin be aşkım sensin, sensiz ne yapardım ben. Kendimi ne kadar yalnız hissederdim tahmin etmek istemiyorum. ',
+        'Bu siteyi ilk başta kodlarken bu kadar yol katedeceğimizi ve beraber böyle güzel anılar biriktireceğimizi tahmin etmemiştim biliyor musun. Bunları yazarken sen uyuyorsun şuan, benimle olduğunu bilmek ve benimle olurken mutlu bir şekilde uyuduğunu bilmek beni çok mutlu ediyor. Bu genelleme hariç hiçbir erkek genellemesini kabul etmiyorum: Erkek adam çok ama çok sever. Buna o kadar inanıyorum ki. Ben sadece çok ama çok seven bir erkek de değilim, ben seni çok ama çok seven bir erkeğim, sana çok saygılı, aşık, seninle gelecek hayali kuran bir erkeğim. Ayrıca, alakasız ama içimden geldi: Yaptığım tüm iyi/kötü esprilerime hep güzel dişlerinle güldüğün için teşekkür ederim güzel bebeğim.',
+        'Bundan önce yazdığım yazılar ne kadar farklıymış şimdiye göre, buradan da görebiliyorum beraber büyümüşüz, olgunlaşmışız. Bunu beraber yaptığımız için çok mutluyum. Daha nice günler bizi bekliyor, beraber aynı evde kaldığımız, birbirimizi üzmekten çok çekindiğimiz, saygının sevginin en önemli şeyler olduğu bir evde seni benimle hayal ediyorum ve bunun için söz veriyorum çok çabalayacağım. ',
+        'Bunun hakkında burada önceden bahsettim ama tekrardan bahsetmek istiyorum. Sevgilim, sen gerçekten ama gerçekten çok akıllı, çok zeki ve çok olgun bir kızsın. Gelecek hayatın için kaygılanma, ben bunu kendim çok iyi biliyorum ve hissediyorum ki bu dünyadaki en mutlu insanlardan biri olacaksın, biri diyorum çünkü seninle olduğum için en mutlu insan ben olacağım. Sakın aklına ve kalbine uyan karakter özelliklerinden şaşma olur mu? Kimse için bunu yapma. Sen hiçkimsede görmediğim şeylere sahipsin güzelim benim. Sevgilim dışında insan olarak bir kere çok güzel bir insansın, çok temiz kalpli bir insansın. Seni sevgilim yapabildiğim için çok gurur duyuyorum kendimle.',
+        'Benim mutluluğumu ilişkimiz boyunca ne kadar arttırdığını görmen için anlatmama gerek yok. Bu sitenin en başına git ve fotoğrafların hepsine teker teker bak. Sonrasında da bu yeni eklediğim resimlere teker teker bir göz at. Sen beni gerçekten pozitif anlamda o kadar çok değiştirdin ki. Bana hem çok şey öğrettin hemde dünyanın aslında seninle birlikte gülünce ne kadar da mutlu yaşanılabildiğini öğrettin. İyi ki varsın be hayatım, hep de yanımda ol olur mu? Seni kırıp üzdüğüm zamanlar için özür dilerim, emin ol ki böyle şeylerin yaşanmaması için elimden ne geliyorsa yapmaya hazırım. Benim elimde olan şeyleri düşünme bile, çünkü artık öyle şeyler olmayacak.',
+        'Son olarak güzelim, her şey için teşekkür ederim. Bana gösterdiğin sevgiyi, saygıyı ve emeği sonuna kadar görüyorum. Benim üzerimde durduğun ve sevginle kızıp tartıştığın için teşekkür ederim. Çünkü aynı dediğin gibi, çok sevdiğin için üzülüyorsun, çok sevdiğin için yıkılıyorsun. Bende seni çoooooooook seviyorummmm. Canını sıkan diğer insanları boşver olur mu, ben hep senin yanındayım, cevap veremesem bile en azından seni dinlerim, çözüm üretmeye çalışırım. İyi ki varsın. Yeni sayfaya geç :)'
     ];
 
+    const imageFiles = [
+        '1.webp',
+        '2.webp',
+        '3.webp',
+        '4.webp',
+        '5.webp',
+        '6.webp',
+        '7.webp',
+        '8.webp',
+        '9.webp',
+        '10.webp',
+        '11.webp',
+        '12.webp',
+        '13.webp',
+        '14.webp',
+        '15.webp',
+        '16.webp'
+    ];
+
+    const QUESTION_PAGE_NUMBER = imageFiles.length + 1;
+    const TOTAL_PAGES = Math.max(providedTexts.length, QUESTION_PAGE_NUMBER);
+
     for (let i = 1; i <= TOTAL_PAGES; i++) {
+        const isQuestionPage = i === QUESTION_PAGE_NUMBER;
         pagesData.push({
             pageNumber: i,
-            imageSrc: `images/${i}.webp`,
-            text: i <= providedTexts.length ? providedTexts[i - 1] : null
+            imageSrc: !isQuestionPage && i <= imageFiles.length ? `images/${imageFiles[i - 1]}` : null,
+            text: isQuestionPage ? '' : (providedTexts[i - 1] || ''),
+            isQuestionPage
         });
     }
-    // MODIFIED: Gereksiz olan ikinci döngü kaldırıldı.
-    // for (let i = pagesData.length + 1; i <= TOTAL_PAGES; i++) {
-    //     pagesData.push({ pageNumber: i, imageSrc: null, text: null });
-    // }
-
     // --- Functions ---
     function openNotebook() {
         fixedTitleElem.textContent = coverTitleElem.textContent;
@@ -104,16 +129,131 @@ document.addEventListener('DOMContentLoaded', () => {
                     pageImageElem.classList.add('hidden');
                     pageImageElem.style.cursor = 'default';
                 }
-                pageTextElem.textContent = pageData.text || '';
+                if (pageData.isQuestionPage) {
+                    if (pageImageContainer) {
+                        pageImageContainer.classList.add('hidden');
+                    }
+                    renderLoveQuestion();
+                } else {
+                    if (pageImageContainer) {
+                        pageImageContainer.classList.remove('hidden');
+                    }
+                    pageTextElem.classList.remove('love-question-active');
+                    pageTextElem.textContent = pageData.text || '';
+                }
             } else {
                 pageImageElem.classList.add('hidden');
                 pageImageElem.style.cursor = 'default';
+                pageTextElem.classList.remove('love-question-active');
                 pageTextElem.textContent = 'Sayfa içeriği bulunamadı.';
             }
             updateNavigationButtons();
             currentPageContentDiv.scrollTop = 0;
             currentPageContentDiv.classList.remove('fade-out');
         }, 150);
+    }
+
+    function renderLoveQuestion() {
+        pageTextElem.classList.add('love-question-active');
+        pageTextElem.innerHTML = `
+            <div class="love-question">
+                <div class="love-confetti" aria-hidden="true"></div>
+                <div class="love-hearts" aria-hidden="true"></div>
+                <p class="love-question-title">Beni seviyor musun?</p>
+                <p class="love-question-sub" id="love-question-sub">Cevabın çok önemli.</p>
+                <div class="love-question-actions">
+                    <button id="love-yes-btn" class="love-yes">Evet</button>
+                    <button id="love-no-btn" class="love-no">Hayır</button>
+                </div>
+            </div>
+        `;
+
+        const loveSub = document.getElementById('love-question-sub');
+        const loveYes = document.getElementById('love-yes-btn');
+        const loveNo = document.getElementById('love-no-btn');
+        const heartsContainer = pageTextElem.querySelector('.love-hearts');
+        const confettiContainer = pageTextElem.querySelector('.love-confetti');
+
+        const noReplies = [
+            'Emin misin aşkım?',
+            'Son kararın mı :(',
+            'Kalbim kırılacak ama yine de mi?',
+            'Bir kez daha düşünsen olmaz mı?',
+            'Şaka olarak algıladım hadi hadi.',
+            'Sadece “Evet” demen yeter aslında.',
+            'Son şansın, sevmiyor musun beni?',
+            'Tamam, bir kez daha soruyorum: Beni seviyor musun?',
+            'İnatçısın ama ben daha inatçıyım.',
+            'Peki ya minik bir “evet”?'
+        ];
+
+        let noIndex = 0;
+        let accepted = false;
+
+        loveYes.addEventListener('click', () => {
+            if (!accepted) {
+                accepted = true;
+                loveSub.textContent = 'Ben de seni çoooook seviyorum güzelimmmm. İyi ki varsın.';
+                loveYes.textContent = 'Yeeeyy!';
+                loveNo.style.display = 'none';
+                launchHearts(heartsContainer);
+            }
+            launchConfetti(confettiContainer);
+        });
+
+        loveNo.addEventListener('click', () => {
+            const nextText = noReplies[Math.min(noIndex, noReplies.length - 1)];
+            loveSub.textContent = nextText;
+            loveNo.textContent = noIndex < 2 ? 'Hayır' : 'Emin misin?';
+            loveYes.textContent = noIndex < 3 ? 'Evet' : 'Evet, tabii';
+            noIndex += 1;
+
+            if (noIndex >= noReplies.length) {
+                loveNo.style.display = 'none';
+                loveYes.textContent = 'Evet';
+            }
+        });
+    }
+
+    function launchHearts(container) {
+        if (!container) return;
+        container.innerHTML = '';
+        const heartCount = 40;
+        for (let i = 0; i < heartCount; i += 1) {
+            const heart = document.createElement('span');
+            heart.className = 'love-heart';
+            const x = Math.random() * 100;
+            const delay = Math.random() * 0.9;
+            const duration = 1.6 + Math.random() * 1.4;
+            const scale = 0.7 + Math.random() * 1.0;
+            heart.style.left = `${x}%`;
+            heart.style.animationDelay = `${delay}s`;
+            heart.style.animationDuration = `${duration}s`;
+            heart.style.setProperty('--scale', scale.toFixed(2));
+            container.appendChild(heart);
+        }
+    }
+
+    function launchConfetti(container) {
+        if (!container) return;
+        container.innerHTML = '';
+        const colors = ['#f2a7c6', '#f6d365', '#7fd1c5', '#a3bff0', '#f39a7b', '#caa0f0'];
+        const pieceCount = 50;
+        for (let i = 0; i < pieceCount; i += 1) {
+            const piece = document.createElement('span');
+            piece.className = 'confetti-piece';
+            const x = Math.random() * 100;
+            const delay = Math.random() * 0.4;
+            const duration = 1.6 + Math.random() * 1.2;
+            const rotation = Math.floor(Math.random() * 360);
+            const color = colors[i % colors.length];
+            piece.style.left = `${x}%`;
+            piece.style.animationDelay = `${delay}s`;
+            piece.style.animationDuration = `${duration}s`;
+            piece.style.setProperty('--spin', `${rotation}deg`);
+            piece.style.background = color;
+            container.appendChild(piece);
+        }
     }
 
     function updateNavigationButtons() {

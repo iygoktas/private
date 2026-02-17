@@ -5,27 +5,45 @@
     box-sizing: border-box;
 }
 
+:root {
+    color-scheme: light;
+    --ink: #2f2a24;
+    --ink-muted: #5f554b;
+    --paper: #fffaf2;
+    --paper-warm: #f1e6d6;
+    --paper-accent: #e7d9c6;
+    --accent: #8a6b52;
+    --accent-dark: #6f563f;
+    --border: #dbcdbd;
+    --shadow: 0 10px 28px rgba(36, 30, 23, 0.12);
+    --radius: 18px;
+    --content-max: 36ch;
+    --font-body: "Source Sans 3", "Avenir Next", system-ui, sans-serif;
+    --font-display: "Fraunces", "Georgia", serif;
+}
+
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: #f4f0e8;
+    font-family: var(--font-body);
+    font-size: clamp(16px, 2.2vw + 10px, 19px);
+    line-height: 1.6;
+    background: radial-gradient(120% 120% at 0% 0%, #fbf4ea 0%, #efe4d3 45%, #e7dccb 100%);
     display: flex;
     justify-content: center; /* app-container'ı yatayda ortalar */
-    /* align-items: center; /* dikey ortalamayı kaldırıyoruz, app-container 100svh olacak */
-    /* min-height: 100vh; /* body artık tam ekran yüksekliğini alacak */
     height: 100vh; /* MODIFIED: body'nin tam viewport yüksekliğini almasını sağlar */
     margin: 0; /* Tarayıcı varsayılan margin'lerini sıfırlar */
-    color: #3a352f;
+    color: var(--ink);
     overflow: hidden; /* body'nin kaydırma çubuklarını engeller */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
 }
 
 #app-container {
-    width: 380px;
-    /* height: 800px; */ /* ESKİ - Sorunlu olan kısım */
+    width: min(92vw, 440px);
     height: 100svh; /* MODIFIED: Tarayıcının küçültülmüş (araç çubukları hesaba katılmış) viewport yüksekliğini kullanır */
-                     /* Alternatif olarak 100vh deneyebilirsiniz, ancak svh mobilde genelde daha iyidir */
-    background-color: #fffdfa;
-    border: 1px solid #dcd1c0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(180deg, #fffdf8 0%, #fff7ec 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
     display: flex;
     flex-direction: column;
     position: relative;
@@ -49,37 +67,66 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 40px;
+    padding: 44px 30px;
     height: 100%; /* app-container içinde %100 yükseklik */
-    background-color: #eaddc7;
+    background: linear-gradient(180deg, #f6e7d3 0%, #eddcc7 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.cover-page-frame {
+    position: absolute;
+    inset: 14px;
+    border: 2px solid rgba(127, 96, 70, 0.5);
+    border-radius: 20px;
+    box-shadow: inset 0 0 0 6px rgba(255, 248, 238, 0.7);
+    pointer-events: none;
+}
+
+.cover-badge {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6b5642;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(139, 108, 82, 0.3);
+    padding: 8px 14px;
+    border-radius: 999px;
+    margin-bottom: 18px;
 }
 
 #cover-title {
-    font-size: 2.5em;
-    color: #5c4b3e;
-    margin-bottom: 20px;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3vw + 1.4rem, 2.8rem);
+    line-height: 1.15;
+    color: #5b4637;
+    margin-bottom: 18px;
 }
 
 #cover-description {
-    font-size: 1.1em;
-    color: #7a6a5c;
-    margin-bottom: 40px;
-    padding: 0 20px;
+    font-size: 1.05rem;
+    color: var(--ink-muted);
+    margin-bottom: 32px;
+    padding: 0 10px;
 }
 
 #open-notebook-btn {
-    padding: 15px 30px;
-    font-size: 1.2em;
-    background-color: #8d7b68;
+    padding: 14px 34px;
+    min-height: 48px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    background-color: var(--accent);
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 #open-notebook-btn:hover {
-    background-color: #7a6a5c;
+    background-color: var(--accent-dark);
 }
 
 /* Notebook Interior */
@@ -91,10 +138,10 @@ body {
 }
 
 #notebook-header {
-    background-color: #f0e6d8;
-    padding: 10px 15px;
+    background-color: var(--paper-warm);
+    padding: 12px 16px;
     text-align: center;
-    border-bottom: 1px solid #dcd1c0;
+    border-bottom: 1px solid var(--border);
     position: sticky; /* Sayfa kaydırılırsa üstte sabit kalır (main content kayarsa) */
     top: 0;
     z-index: 10;
@@ -104,21 +151,35 @@ body {
 }
 
 #return-to-cover-btn {
-    background: none;
-    border: none;
-    color: #7a6a5c;
-    font-size: 1em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(140, 109, 81, 0.25);
+    border-radius: 10px;
+    color: #7a5b43;
+    font-size: 1.1rem;
     cursor: pointer;
-    padding: 2px 5px;
+    padding: 0;
     line-height: 1;
     flex-shrink: 0;
 }
 #return-to-cover-btn:hover {
     color: #5c4b3e;
+    border-color: rgba(120, 92, 67, 0.45);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+#return-to-cover-btn svg {
+    width: 18px;
+    height: 18px;
 }
 
 #fixed-title {
-    font-size: 1.3em;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
     color: #5c4b3e;
     font-weight: bold;
     text-align: center;
@@ -132,10 +193,11 @@ body {
 
 #notebook-pages-container {
     flex-grow: 1; /* Kalan tüm dikey alanı kaplar */
-    padding: 20px;
+    padding: 22px 24px 28px;
     overflow-y: auto; /* İçerik taşarsa kaydırma çubuğu çıkar */
     display: flex;
     flex-direction: column;
+    gap: 18px;
     position: relative; /* Sayfa geçiş animasyonları için gerekebilir */
 }
 
@@ -153,19 +215,25 @@ body {
 }
 
 .page-image-container {
-    width: 100%;
-    max-width: 300px;
-    margin-bottom: 15px;
+    width: min(86vw, 320px);
+    height: min(50vh, 360px);
+    margin-bottom: 10px;
     display: flex;
+    align-items: center;
     justify-content: center;
+    background: rgba(255, 251, 245, 0.8);
+    border: 1px solid rgba(140, 109, 81, 0.18);
+    border-radius: 14px;
+    padding: 10px;
+    box-shadow: 0 10px 22px rgba(73, 56, 41, 0.12);
 }
 
 #page-image {
     max-width: 100%;
-    max-height: 350px; /* Resim için maksimum yükseklik */
+    max-height: 100%;
     object-fit: contain;
-    border-radius: 4px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    box-shadow: none;
     display: block;
     cursor: pointer;
 }
@@ -175,37 +243,182 @@ body {
 }
 
 .page-text-container {
-    font-size: 0.87em;
-    line-height: 1.4;
+    font-size: 1.02rem;
+    line-height: 1.75;
+    letter-spacing: 0.01em;
     color: #4a443d;
     width: 100%;
-    max-width: 300px;
+    max-width: 34ch;
     text-align: left;
     min-height: 50px; /* Metin kısa olsa bile biraz alan bırakır */
+    text-wrap: pretty;
+}
+
+.page-text-container.love-question-active {
+    max-width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 0;
+    flex: 1;
+    min-height: 100%;
+}
+
+.love-question {
+    width: 100%;
+    max-width: 320px;
+    background: rgba(255, 251, 244, 0.9);
+    border: 1px solid rgba(140, 109, 81, 0.25);
+    border-radius: 16px;
+    padding: 20px 18px 18px;
+    box-shadow: 0 10px 20px rgba(73, 56, 41, 0.12);
+    position: relative;
+    overflow: hidden;
+}
+
+.love-question > *:not(.love-hearts):not(.love-confetti) {
+    position: relative;
+    z-index: 1;
+}
+
+.love-confetti,
+.love-hearts {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.love-heart {
+    position: absolute;
+    bottom: -10px;
+    font-size: 18px;
+    color: #d9748e;
+    opacity: 0;
+    animation-name: love-float;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+    filter: drop-shadow(0 6px 10px rgba(150, 76, 96, 0.25));
+}
+
+.love-heart::before {
+    content: "❤";
+}
+
+@keyframes love-float {
+    0% {
+        transform: translateY(0) scale(var(--scale, 1));
+        opacity: 0;
+    }
+    15% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-160px) scale(var(--scale, 1));
+        opacity: 0;
+    }
+}
+
+.confetti-piece {
+    position: absolute;
+    top: -10px;
+    width: 8px;
+    height: 12px;
+    border-radius: 2px;
+    opacity: 0;
+    animation-name: confetti-fall;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(180px) rotate(var(--spin, 180deg));
+        opacity: 0;
+    }
+}
+
+.love-question-title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: #5b4637;
+    margin-bottom: 6px;
+}
+
+.love-question-sub {
+    font-size: 1rem;
+    color: var(--ink-muted);
+    margin-bottom: 16px;
+}
+
+.love-question-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.love-question-actions button {
+    flex: 1;
+    min-height: 44px;
+    border-radius: 999px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.love-yes {
+    background: #7f5f45;
+    color: #fff;
+}
+
+.love-yes:hover {
+    background: #6b4f38;
+}
+
+.love-no {
+    background: #f0e4d6;
+    color: #6b5642;
+    border: 1px solid rgba(127, 96, 70, 0.3);
+}
+
+.love-no:hover {
+    background: #e8dac8;
 }
 
 #notebook-navigation {
     display: flex;
     justify-content: space-between;
-    padding: 15px 20px;
-    border-top: 1px solid #dcd1c0;
-    background-color: #f0e6d8;
+    gap: 12px;
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+    background-color: var(--paper-warm);
     /* Bu eleman notebook-interior flex layout'unun sonunda olacağı için görünür olmalı */
 }
 
 #notebook-navigation button {
-    padding: 10px 20px;
-    font-size: 1em;
-    background-color: #a08f7c;
+    flex: 1;
+    padding: 12px 18px;
+    min-height: 46px;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: #9a8571;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 #notebook-navigation button:hover {
-    background-color: #8d7b68;
+    background-color: var(--accent-dark);
 }
 
 #notebook-navigation button:disabled {
@@ -241,8 +454,8 @@ body {
     max-width: 90vw;
     max-height: 85vh;
     object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    border-radius: 12px;
+    box-shadow: 0 16px 32px rgba(0,0,0,0.35);
     transform: scale(0.7);
     transition: transform 0.3s ease;
     z-index: 1001;
@@ -250,4 +463,86 @@ body {
 
 #image-focus-overlay.visible #focused-image {
     transform: scale(1);
+}
+
+button:focus-visible {
+    outline: 2px solid rgba(111, 86, 63, 0.4);
+    outline-offset: 2px;
+}
+
+@media (max-width: 540px) {
+    #app-container {
+        width: 100vw;
+        border-radius: 0;
+        border: none;
+    }
+
+    #cover-page {
+        padding: 40px 22px;
+    }
+
+    #cover-description {
+        padding: 0;
+    }
+
+    #notebook-pages-container {
+        padding: 20px 18px 26px;
+    }
+
+    #notebook-navigation {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 420px) {
+    body {
+        font-size: clamp(16px, 3.2vw + 9px, 18px);
+    }
+
+    #cover-title {
+        font-size: clamp(1.9rem, 4.2vw + 1.2rem, 2.5rem);
+    }
+
+    #cover-description {
+        font-size: 1rem;
+    }
+
+    #notebook-header {
+        padding: 10px 14px;
+    }
+
+    #notebook-pages-container {
+        padding: 18px 16px 24px;
+    }
+
+    #page-image {
+        max-height: 100%;
+    }
+
+    .page-image-container {
+        width: min(88vw, 300px);
+        height: min(44vh, 320px);
+        padding: 8px;
+    }
+
+    #notebook-navigation button {
+        font-size: 0.98rem;
+    }
+}
+
+@media (max-height: 700px) {
+    #cover-page {
+        justify-content: flex-start;
+        padding-top: 28px;
+    }
+}
+
+@media (max-height: 640px) {
+    #notebook-pages-container {
+        padding-top: 16px;
+    }
+
+    .page-image-container {
+        height: min(38vh, 260px);
+    }
 }

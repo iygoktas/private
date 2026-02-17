@@ -5,19 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bizim Kitabımız</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="app-container">
         <div id="cover-page">
-            <h1 id="cover-title">Hayat Seninle Çok Güzel</h1>
-            <p id="cover-description">Var olduğunu hep bildiğim ama kabullendiğim eksiğim senmişsin. <br> <br><b>Butonun çalışması için İbrahim'i öp.</b></p>
+            <div class="cover-page-frame" aria-hidden="true"></div>
+            <div class="cover-badge">Bulduuun!</div>
+            <h1 id="cover-title">Seni Çok Seviyorum</h1>
+            <p id="cover-description">
+                Sana bir şey hazırladığımı söylemiştim… işte o şey burası.
+                Buraya geldiğine göre artık buldun. <br><br>
+                <b>Bulduğunu söylemeden önce bana, seni çok seviyorum yaz ve öyle okumaya başla.</b>
+            </p>
             <button id="open-notebook-btn">Aç</button>
         </div>
 
         <div id="notebook-interior" class="hidden">
             <header id="notebook-header">
-                <button id="return-to-cover-btn" title="Back to Cover">&#8617;</button>
+                <button id="return-to-cover-btn" title="Back to Cover" aria-label="Kapak sayfasına dön">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10" fill="currentColor"/>
+                        <path d="M13.6 7.5l-4.6 4.5 4.6 4.5v-2.7h4.9v-3.6h-4.9z" fill="#fff"/>
+                    </svg>
+                </button>
                 <h2 id="fixed-title"></h2>
             </header>
             <main id="notebook-pages-container">
